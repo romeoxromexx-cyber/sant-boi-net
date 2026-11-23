@@ -1,0 +1,23 @@
+SANT BOI NET - PROYECTO PARA NETLIFY
+
+ESTRUCTURA:
+- index.html: web con calendario y formulario conectado a /.netlify/functions/reservas
+- netlify/functions/reservas.mjs: función de servidor para consultar plazas, crear reservas, enviar correo con Resend y cancelar reservas
+- netlify.toml: configuración de publicación y funciones
+- package.json: dependencia de Supabase
+- INSTRUCCIONS-SUPABASE.sql: tabla y función SQL necesarias
+
+ANTES DE PUBLICAR:
+1. Ejecuta INSTRUCCIONS-SUPABASE.sql en Supabase > SQL Editor. Si ya lo ejecutaste, no hace falta repetirlo.
+2. En Netlify configura estas variables de entorno:
+   SUPABASE_URL = Project URL de Supabase
+   SUPABASE_SECRET_KEY = clave secreta sb_secret_... de Supabase
+   RESEND_API_KEY = API key de Resend
+   EMAIL_FROM = Sant Boi Net <onboarding@resend.dev>
+3. Publica el proyecto completo usando Netlify CLI o un repositorio Git conectado a Netlify para que se despliegue también netlify/functions.
+
+IMPORTANTE:
+- No incluyas claves en index.html ni las compartas públicamente.
+- onboarding@resend.dev es un remitente de prueba de Resend y limita los destinatarios. Para enviar a cualquier vecino tendrás que verificar un dominio en Resend.
+- Las reservas se guardan en Supabase. La web mantiene en localStorage una lista local de los códigos reservados desde ese navegador para facilitar la cancelación.
+- Es un proyecto escolar demostrativo, no un sistema oficial del Ayuntamiento.

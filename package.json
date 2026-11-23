@@ -1,0 +1,9 @@
+{
+  "name": "sant-boi-net",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sant Boi Net - web educativa amb reserves de demostració",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1"
+  }
+}

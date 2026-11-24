@@ -78,6 +78,19 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 .reservation-item b{display:block;color:var(--forest);font-size:13px}
 .reservation-item button{margin-top:8px;border:0;background:#fff0ed;color:#a53d2d;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800}
 .disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:14px}
+.guidance-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.guidance-card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:23px;box-shadow:var(--shadow)}
+.guidance-card h3{font-size:18px;color:var(--forest);margin:0 0 10px}
+.guidance-card p,.guidance-card li{font-size:13px;line-height:1.7;color:var(--muted)}
+.guidance-card ul{padding-left:19px;margin:9px 0}.guidance-card li+li{margin-top:5px}
+.warning-card{background:#fff9f1;border-color:#f2dfc4}.warning-card h3{color:#89501a}
+.hours-list{display:grid;gap:8px;margin-top:12px}
+.hours-row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}
+.hours-row b{color:var(--forest);text-align:right}
+.source-link{color:var(--green);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.guidance-note{padding:13px 15px;background:#f0f8e8;border:1px solid #e1efcf;border-radius:14px;margin-top:13px;color:#536c46;font-size:12px;line-height:1.65}
+@media(max-width:800px){.guidance-grid{grid-template-columns:1fr}}
+
 @media(max-width:800px){.booking-layout{grid-template-columns:1fr}}
 @media(max-width:800px){.hero-grid{grid-template-columns:1fr;gap:5px}.visual{min-height:330px}.mock-card{max-width:360px}.visual-blob{width:290px;height:290px}.info-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.stats{margin-bottom:38px}}
 @media(max-width:620px){.container{width:min(100% - 30px,1160px)}.topbar .container{font-size:10px}.header-inner{height:68px}.nav{display:none;position:absolute;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 15px 15px;flex-direction:column;align-items:stretch}.nav.open{display:flex}.nav a{padding:12px}.nav .nav-cta{margin:3px 0 0;text-align:center}.menu-btn{display:block}.hero{padding:42px 0 25px}.hero-copy{font-size:15px}.visual{min-height:300px}.mock-card{width:88%;padding:20px}.float-chip{font-size:10px}.chip-one{right:-3px}.chip-two{left:-2px}.stats{grid-template-columns:1fr}.stat{padding:13px}.stat b{font-size:16px}.form-row{grid-template-columns:1fr}.form-row .btn{width:100%}.urgent{align-items:flex-start;flex-direction:column}.contact-grid{grid-template-columns:1fr}.footer-inner,.footer-bottom{flex-direction:column}.footer-bottom{gap:7px}}
@@ -119,21 +132,21 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 
    <label for="bookingItemType">TIPUS D'OBJECTE</label>
    <select id="bookingItemType" name="tipoObjeto" required>
-    <option value="">Selecciona el tipus d'objecte...</option>
-    <option value="Madera y muebles">Madera y muebles</option>
-    <option value="Aparatos eléctricos y electrónicos (RAEE)">Aparatos eléctricos y electrónicos (RAEE)</option>
-    <option value="Metales y chatarra">Metales y chatarra</option>
-    <option value="Colchones">Colchones</option>
-    <option value="Objetos en buen estado">Objetos en buen estado</option>
-    <option value="Fracción resto">Fracción resto</option>
+    <option value="">Selecciona la categoria...</option>
+    <option value="Madera y muebles">Fusta i mobles</option>
+    <option value="Aparatos eléctricos y electrónicos (RAEE)">Aparells elèctrics i electrònics (RAEE)</option>
+    <option value="Metales y chatarra">Metalls i ferralla</option>
+    <option value="Colchones">Matalassos</option>
+    <option value="Objetos en buen estado">Objectes en bon estat</option>
+    <option value="Fracción resto">Fracció resta</option>
    </select>
-   <span class="field-help">Selecciona la categoría que mejor describa los objetos que dejarás.</span>
+   <span class="field-help">Selecciona la categoria que descrigui millor els objectes que deixaràs.</span>
 
-   <label for="bookingQuantity">CANTIDAD DE OBJETOS</label>
+   <label for="bookingQuantity">QUANTITAT D’OBJECTES</label>
    <input id="bookingQuantity" name="cantidad" type="number" min="1" max="999" step="1" required inputmode="numeric" placeholder="Ej. 2">
 
-   <label for="bookingDescription">DESCRIPCIÓN ADICIONAL (OPCIONAL)</label>
-   <textarea id="bookingDescription" name="descripcion" maxlength="500" placeholder="Puedes indicar qué muebles o materiales son, medidas aproximadas, etc."></textarea>
+   <label for="bookingDescription">DESCRIPCIÓ ADDICIONAL (OPCIONAL)</label>
+   <textarea id="bookingDescription" name="descripcion" maxlength="500" placeholder="Pots indicar quins mobles o materials són, les mides aproximades, etc."></textarea>
 
    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px" >
    <button class="btn btn-primary" id="reserveBtn" type="submit" disabled>Confirmar reserva <span>→</span></button>
@@ -146,8 +159,42 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 </section>
 <section class="content container" id="guia"><div class="section-head reveal"><div><div class="section-label">En tres passos</div><h2>Com ho has de fer?</h2><p>És molt senzill. Recorda aquestes tres indicacions.</p></div></div>
 <div class="info-grid"><article class="info-card reveal"><div class="info-icon">📅</div><div class="number">PAS 01</div><h3>Consulta el calendari</h3><p>Busca el teu barri a dalt i mira quin dia et toca deixar els mobles.</p></article><article class="info-card reveal"><div class="info-icon">🕗</div><div class="number">PAS 02</div><h3>Respecta l'horari</h3><p>Deixa els mobles entre les 20.00 i les 22.00 h del dia indicat.</p></article><article class="info-card reveal"><div class="info-icon">🏠</div><div class="number">PAS 03</div><h3>Tria el lloc correcte</h3><p>Deixa'ls al costat de l'entrada de l'edifici, mai al costat dels contenidors.</p></article></div>
-<div class="tip reveal"><span>💡</span><p><b>Un detall important:</b> la recollida es fa durant el dia següent. Si tens molts mobles per retirar, fes-ho en diverses tandes.</p></div></section>
-<section class="content container" id="urgencies"><div class="urgent reveal"><div class="urgent-content"><div class="section-label" style="color:#b9f3d3">Una altra opció</div><h2>Ho necessites retirar abans?</h2><p>Si no pots esperar el dia de recollida, pots portar els objectes a la deixalleria municipal.<br><strong>Deixalleria municipal</strong> · Carrer del Dr. Josep Castells, 25 · Sant Boi de Llobregat.</p></div><a class="btn btn-light" href="#contacte">Necessito ajuda →</a></div></section>
+<div class="tip reveal"><span>💡</span><p><b>Un detall important:</b> la recollida es fa durant el dia següent. Si has de buidar un pis, treu els mobles en diferents tandes; no els deixis tots de cop a la vorera. Si algun moble és massa voluminós, desmunta’l sempre que sigui possible i consulta el servei municipal.</p></div>
+<div class="guidance-grid">
+ <article class="guidance-card warning-card reveal"><div class="info-icon">⚠️</div><h3>Què NO s’ha de deixar al carrer?</h3>
+ <p>La recollida de mobles és per a objectes voluminosos admesos pel servei. No hi deixis:</p>
+ <ul><li>Runes i residus d’obres o reformes.</li><li>Sanitaris: vàters, lavabos o banyeres.</li><li>Pneumàtics.</li><li>Pots de pintura, dissolvents i altres residus especials.</li><li>Vidres grans solts ni bosses de brossa domèstica.</li></ul>
+ <p><b>On els has de portar?</b> A la Deixalleria municipal o al punt de recollida adequat. Si fas una reforma, informa’t sobre la contractació d’un sac o contenidor autoritzat.</p></article>
+ <article class="guidance-card reveal"><div class="info-icon">🤝</div><h3>Per què és important fer-ho bé?</h3>
+ <p>Deixar mobles al costat dels contenidors pot impedir que els camions de càrrega lateral s’hi acostin i buidin els contenidors amb seguretat.</p>
+ <p>Respectar el dia, l’horari i el lloc de recollida manté les voreres accessibles i evita abocaments incontrolats.</p>
+ <p><b>Atenció:</b> abandonar residus a la via pública o incomplir les normes municipals pot comportar sancions segons l’ordenança vigent. Consulta l’Ajuntament per conèixer els supòsits i imports aplicables.</p></article>
+</div></section>
+<section class="content container" id="urgencies">
+ <div class="urgent reveal"><div class="urgent-content"><div class="section-label" style="color:#b9f3d3">Una altra opció</div><h2>Ho necessites retirar abans?</h2><p>Si no pots esperar el dia de recollida, pots portar els residus admesos a la deixalleria municipal.<br><strong>Deixalleria municipal</strong> · C/ del Dr. Josep Castells, 25 · polígon industrial Can Calderón, Sant Boi de Llobregat.</p></div><a class="btn btn-light" href="#contacte">Necessito ajuda →</a></div>
+ <div class="guidance-grid">
+  <article class="guidance-card reveal"><div class="info-icon">🕘</div><h3>Horari de la Deixalleria Municipal</h3>
+   <div class="hours-list">
+    <div class="hours-row"><span>Dilluns a divendres</span><b>9.00–13.00 h<br>17.00–18.45 h</b></div>
+    <div class="hours-row"><span>Dissabtes</span><b>8.30–13.45 h</b></div>
+    <div class="hours-row"><span>Diumenges</span><b>Tancat</b></div>
+    <div class="hours-row"><span>Juliol i agost</span><b>Dilluns a dissabte<br>8.00–13.45 h</b></div>
+   </div>
+   <p>Telèfon: <a class="source-link" href="tel:936523325">936 523 325</a>. Consulta possibles avisos o canvis puntuals abans de desplaçar-t’hi.</p>
+   <p><a class="source-link" href="https://www.amb.cat/web/medi-ambient/residus/instalacions-i-equipaments/detall/-/equipament/deixalleria-de-sant-boi-de-llobregat/333918/11818" target="_blank" rel="noopener">Consulta la fitxa de la Deixalleria a l’AMB ↗</a></p>
+  </article>
+  <article class="guidance-card reveal"><div class="info-icon">📍</div><h3>Opcions més a prop del teu barri</h3>
+   <p><b>Punt Verd La Muntanyeta</b><br>C/ Lluís Pascual Roca, 67 · dijous i divendres de 16.00 a 20.00 h; dissabtes de 10.00 a 14.00 h.</p>
+   <p><b>Punt Verd de Ciutat Cooperativa i Molí Nou</b><br>C/ Pau Casals, 7 · de dilluns a divendres de 9.00 a 21.00 h; dissabtes de 10.00 a 14.00 h; diumenges de 10.00 a 14.00 h i de 16.00 a 20.30 h.</p>
+   <p>Per a residus petits i especials —com piles, bombetes, cables, oli usat o petits electrodomèstics— comprova abans quins accepta cada punt.</p>
+  </article>
+ </div>
+ <div class="guidance-card reveal" style="margin-top:16px"><div class="info-icon">🚐</div><h3>Deixalleria Mòbil: cada dimarts</h3>
+  <p>El vehicle visita diferents barris en horaris fixos: Ciutat Cooperativa i Molí Nou (9.00–10.10 h), Marianao I (10.20–11.30 h), Marianao II (11.40–12.00 h), Vinyets (12.10–13.20 h) i Torre de la Vila (13.30–14.00 h).</p>
+  <p><a class="source-link" href="https://www.santboi.cat/deixalleries" target="_blank" rel="noopener">Consulta ubicacions, residus admesos i horaris actualitzats ↗</a></p>
+  <div class="guidance-note">La Deixalleria municipal és gratuïta dins dels límits establerts per a cada tipus de residu. Les quantitats i condicions poden variar segons el residu: consulta-les abans de carregar el vehicle.</div>
+ </div>
+</section>
 <section class="content container" id="contacte"><div class="section-head reveal"><div><div class="section-label">Estem per ajudar-te</div><h2>Tens algun dubte?</h2><p>Contacta amb el servei municipal per confirmar qualsevol informació.</p></div></div><div class="contact-grid"><div class="contact-card reveal"><div class="ico">☎️</div><div><b>Telèfon Net</b><small>Atenció de 9.00 a 21.00 h (a l'agost, de 9.00 a 14.00 h)</small><br><a href="tel:900108830">900 108 830 · Trucar</a></div></div><div class="contact-card reveal"><div class="ico">📌</div><div><b>Deixalleria municipal</b><small>Carrer del Dr. Josep Castells, 25</small><br><span style="font-size:12px;color:var(--green);font-weight:800">Sant Boi de Llobregat</span></div></div></div></section>
 </main>
 <footer><div class="container"><div class="footer-inner"><div><div class="footer-brand">♻ Sant Boi Net</div><p>Una guia digital per fer més fàcil la recollida de mobles i ajudar a mantenir els carrers de Sant Boi nets i cuidats.</p></div><div style="font-size:12px;color:#b7d4c7">Projecte escolar · EIX: Impacte Humà<br>Informació orientativa basada en les indicacions municipals.</div></div><div class="footer-bottom"><span>© Sant Boi Net · Projecte educatiu</span><span>Fem-ho fàcil. Fem-ho bé. 🌿</span></div></div></footer>

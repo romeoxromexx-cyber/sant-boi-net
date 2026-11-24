@@ -90,6 +90,21 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 .source-link{color:var(--green);font-weight:800;text-decoration:underline;text-underline-offset:3px}
 .guidance-note{padding:13px 15px;background:#f0f8e8;border:1px solid #e1efcf;border-radius:14px;margin-top:13px;color:#536c46;font-size:12px;line-height:1.65}
 @media(max-width:800px){.guidance-grid{grid-template-columns:1fr}}
+.street-search,.triage-card,.truck-card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:var(--shadow);margin-top:16px}
+.smart-input{width:100%;border:1px solid #dce9e1;border-radius:12px;padding:14px 15px;background:#fbfdfb;color:var(--ink);font:inherit;outline:none}
+.smart-input:focus{border-color:var(--green2);box-shadow:0 0 0 4px #0b9b6b18}
+.suggestion-list{display:grid;gap:6px;margin-top:8px}
+.suggestion-list button{border:1px solid var(--line);background:#f8fcf9;border-radius:10px;padding:10px 12px;text-align:left;color:var(--ink);font-size:13px}
+.suggestion-list button:hover{border-color:var(--green2);background:var(--mint)}
+.smart-result{margin-top:12px;padding:13px 15px;border-radius:13px;background:#f1faf4;border:1px solid #dcefe3;font-size:13px;line-height:1.6;color:var(--ink)}
+.triage-result.street{background:#effaf3;border-color:#cfe9d8}
+.triage-result.deixalleria{background:#fff8ed;border-color:#f0dfc2}
+.truck-meter{height:13px;background:#e8eee9;border-radius:99px;overflow:hidden;margin:12px 0 7px}
+.truck-meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#10a779,#c9f36b);border-radius:99px;transition:width .25s}
+.truck-meter.warning span{background:linear-gradient(90deg,#e6a23c,#d85b42)}
+.truck-caption{font-size:12px;color:var(--muted);line-height:1.6}
+.truck-warning{font-size:12px;line-height:1.6;padding:11px 13px;border-radius:11px;background:#fff4e8;color:#89501a;margin-top:10px}
+
 
 @media(max-width:800px){.booking-layout{grid-template-columns:1fr}}
 @media(max-width:800px){.hero-grid{grid-template-columns:1fr;gap:5px}.visual{min-height:330px}.mock-card{max-width:360px}.visual-blob{width:290px;height:290px}.info-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.stats{margin-bottom:38px}}
@@ -111,10 +126,22 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 </div></section>
 <div class="container"><div class="stats reveal"><div class="stat"><b>6 zones</b><small>Amb calendari de recollida</small></div><div class="stat"><b>20.00–22.00 h</b><small>Franja per deixar els mobles</small></div><div class="stat"><b>3 passos</b><small>Per fer-ho correctament</small></div></div></div>
 <section class="content container" id="calendari"><div class="section-head reveal"><div><div class="section-label">Consulta ràpida</div><h2>Quan passen pel teu barri?</h2><p>Selecciona el teu barri i t'indiquem el dia i l'horari.</p></div></div>
+<div class="street-search reveal">
+ <div class="lookup-head"><div class="lookup-symbol">🔎</div><div><h3>Troba el teu barri pel nom del carrer</h3><p>Escriu una adreça de Sant Boi i selecciona un suggeriment.</p></div></div>
+ <label for="streetInput" class="field" style="display:block;font-size:12px;font-weight:800;margin-bottom:8px">CARRER I, SI CAL, NÚMERO</label>
+ <input id="streetInput" class="smart-input" type="search" autocomplete="off" placeholder="Ex.: Carrer de Jaume I">
+ <div id="streetSuggestions" class="suggestion-list" aria-live="polite"></div>
+ <div id="streetStatus" class="smart-result" aria-live="polite">El cercador consultarà adreces de Sant Boi. Si el servei de mapes no identifica el barri amb prou precisió, podràs confirmar-lo manualment.</div>
+</div>
 <div class="lookup-card reveal"><div class="lookup-head"><div class="lookup-symbol">📍</div><div><h3>Troba el teu dia de recollida</h3><p>Només has de seleccionar el teu barri.</p></div></div>
 <div class="form-row"><div class="field"><label for="barri">EL MEU BARRI</label><select id="barri"><option value="">Selecciona el teu barri...</option><option>Marianao</option><option>Ciutat Cooperativa i Molí Nou</option><option>Centre</option><option>Vinyets i Molí Vell</option><option>Camps Blancs i Casablanca</option><option>Parc de Marianao, Can Paulet-Pedres Blanques i Canons-Les Orioles</option></select></div><button class="btn btn-primary" id="consulta">Veure el meu dia <span>→</span></button></div>
 <div class="result" id="result" aria-live="polite"><div><div style="font-size:32px">🗓️</div><b>El teu calendari apareixerà aquí</b><div class="small">Tria el teu barri al menú de sobre.</div></div></div></div></section>
 <section class="content container" id="reserves"><div class="section-head reveal"><div><div class="section-label">Reserva de plaça · Calendari interactiu</div><h2>Reserva el teu dia</h2><p>Tria un mes, el teu barri i un dia verd. Cada persona només pot tenir una reserva activa.</p></div></div>
+<div class="triage-card reveal">
+ <div class="lookup-head"><div class="lookup-symbol">♻️</div><div><h3>On ho llenço?</h3><p>Descriu l’objecte i t’indicarem l’opció més adequada.</p></div></div>
+ <input id="triageInput" class="smart-input" type="search" placeholder="Escriu què vols llençar (ex.: nevera, runes, matalàs...)">
+ <div id="triageResult" class="smart-result" aria-live="polite">Prova amb «sofà», «microones», «mirall» o «runes».</div>
+</div>
 <div class="booking-layout reveal">
  <div class="calendar-card">
   <div class="cal-top"><div style="min-width:0"><div class="section-label">Calendari de recollida</div><div class="cal-month" id="calMonth">—</div><div style="display:flex;gap:7px;margin-top:9px;flex-wrap:wrap"><select id="monthPicker" aria-label="Selecciona el mes" style="padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font:600 12px inherit"></select><select id="yearPicker" aria-label="Selecciona l'any" style="padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font:600 12px inherit"></select></div></div><div class="cal-arrows"><button id="prevMonth" aria-label="Mes anterior">‹</button><button id="nextMonth" aria-label="Mes següent">›</button></div></div>
@@ -144,6 +171,13 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 
    <label for="bookingQuantity">QUANTITAT D’OBJECTES</label>
    <input id="bookingQuantity" name="cantidad" type="number" min="1" max="999" step="1" required inputmode="numeric" placeholder="Ej. 2">
+<div class="truck-card" id="truckCard" style="padding:15px;margin-top:12px;box-shadow:none">
+ <div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><b style="font-size:13px;color:var(--forest)">🚛 Espai estimat al camió</b><strong id="truckPercent" style="font:800 16px Manrope;color:var(--green)">0 %</strong></div>
+ <div class="truck-meter" id="truckMeter"><span id="truckFill"></span></div>
+ <div id="truckText" class="truck-caption">Indica el tipus i la quantitat per calcular una estimació orientativa.</div>
+ <div id="truckWarning" class="truck-warning" hidden></div>
+ <div class="truck-caption" style="margin-top:8px">Estimació educativa basada en unitats de volum orientatives; no representa la càrrega real ni la capacitat oficial del vehicle.</div>
+</div>
 
    <label for="bookingDescription">DESCRIPCIÓ ADDICIONAL (OPCIONAL)</label>
    <textarea id="bookingDescription" name="descripcion" maxlength="500" placeholder="Pots indicar quins mobles o materials són, les mides aproximades, etc."></textarea>
@@ -249,5 +283,170 @@ function show(){const name=select.value,info=schedule[name];if(!info){result.cla
 document.getElementById('consulta').addEventListener('click',show);select.addEventListener('change',show);
 const menu=document.getElementById('menuBtn'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open?'true':'false');menu.textContent=open?'✕':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// --- Funcions addicionals: cercador de carrers, triaje i estimació de volum ---
+const streetInput=document.getElementById('streetInput');
+const streetSuggestions=document.getElementById('streetSuggestions');
+const streetStatus=document.getElementById('streetStatus');
+let streetTimer=null,streetAbort=null;
+
+function normalizePlace(v){return (v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.,]/g,' ').replace(/\s+/g,' ').trim()}
+function barrioFromAddress(a){
+ const parts=[a.suburb,a.neighbourhood,a.quarter,a.city_district,a.residential].filter(Boolean).map(normalizePlace).join(' ');
+ const rules=[
+  [/ciutat cooperativa|moli nou|mol[ií] nou/,'Ciutat Cooperativa i Molí Nou'],
+  [/marianao/,'Marianao'],
+  [/vinyets|moli vell|mol[ií] vell/,'Vinyets i Molí Vell'],
+  [/camps blancs|casablanca/,'Camps Blancs i Casablanca'],
+  [/centre|centro|muntanyeta/,'Centre']
+ ];
+ for(const [re,name] of rules){if(re.test(parts))return name}
+ return '';
+}
+function setNeighborhood(name){
+ const main=document.getElementById('barri'),booking=document.getElementById('bookingBarri');
+ if(!name)return false;
+ const option=[...main.options].find(o=>o.value===name||o.textContent===name);
+ if(!option)return false;
+ main.value=option.value;booking.value=option.value;chosenDate='';
+ renderCalendar();updateBookingSummary();show();
+ const now=new Date();let candidate=new Date(now);candidate.setHours(0,0,0,0);
+ for(let i=0;i<50;i++){
+  const key=isoDate(candidate.getFullYear(),candidate.getMonth(),candidate.getDate());
+  if(candidate.getDay()===bookingSchedule[name]&&candidate>=now&&countFor(key,name)<capacityPerDay){
+   chosenDate=key;calDate=new Date(candidate.getFullYear(),candidate.getMonth(),1);renderCalendar();updateBookingSummary();break;
+  }
+  candidate.setDate(candidate.getDate()+1);
+ }
+ document.getElementById('reserves').scrollIntoView({behavior:'smooth',block:'start'});
+ return true;
+}
+async function searchStreets(query){
+ if(streetAbort)streetAbort.abort();
+ streetAbort=new AbortController();
+ const signal=streetAbort.signal;
+ // Primer provem Photon, que retorna resultats GeoJSON i funciona bé des del navegador.
+ try{
+  const photonUrl='https://photon.komoot.io/api/?limit=7&lang=ca&q='+encodeURIComponent(query+' Sant Boi de Llobregat');
+  const photonResponse=await fetch(photonUrl,{signal,headers:{'Accept':'application/json'}});
+  if(photonResponse.ok){
+   const data=await photonResponse.json();
+   const mapped=(data.features||[]).map(feature=>{
+    const p=feature.properties||{};
+    const address={
+     road:p.street||p.name||'',
+     house_number:p.housenumber||'',
+     suburb:p.district||p.suburb||'',
+     neighbourhood:p.neighbourhood||'',
+     quarter:p.locality||'',
+     city:p.city||p.locality||'',
+     town:p.town||'',
+     village:p.village||'',
+     postcode:p.postcode||''
+    };
+    const street=[p.street||p.name,p.housenumber].filter(Boolean).join(' ');
+    const place=[p.district,p.city||p.locality,p.postcode].filter(Boolean).join(', ');
+    return {display_name:[street,place].filter(Boolean).join(', ')||p.name||'Adreça trobada',address};
+   });
+   if(mapped.length)return mapped;
+  }
+ }catch(error){if(error.name==='AbortError')throw error;}
+ // Segon intent amb Nominatim si Photon no respon o no troba resultats.
+ const url='https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=es&q='+encodeURIComponent(query+', Sant Boi de Llobregat');
+ const response=await fetch(url,{signal,headers:{'Accept-Language':'ca'}});
+ if(!response.ok)throw new Error('No s’han pogut consultar les adreces ara mateix.');
+ return await response.json();
+}
+streetInput.addEventListener('input',()=>{
+ clearTimeout(streetTimer);streetSuggestions.innerHTML='';
+ const q=streetInput.value.trim();
+ if(q.length<4){streetStatus.textContent='Escriu almenys quatre caràcters per cercar un carrer.';return}
+ streetStatus.textContent='Cercant adreces...';
+ streetTimer=setTimeout(async()=>{
+  try{
+   const results=await searchStreets(q);streetSuggestions.innerHTML='';
+   if(!results.length){streetStatus.textContent='No hem trobat aquesta adreça. Prova una altra forma d’escriure el carrer.';return}
+   results.forEach(item=>{
+    const b=document.createElement('button');b.type='button';b.textContent=item.display_name;
+    b.addEventListener('click',()=>{
+     streetInput.value=item.display_name;streetSuggestions.innerHTML='';
+     const area=barrioFromAddress(item.address||{});
+     if(area){
+      setNeighborhood(area);
+      streetStatus.textContent='Barri identificat: '+area+'. Hem actualitzat la consulta i seleccionat el pròxim dia disponible al calendari. Comprova que l’adreça sigui correcta.';
+     }else{
+      streetStatus.textContent='Hem trobat l’adreça, però el servei cartogràfic no ha retornat un barri fiable. Selecciona’l al desplegable «El meu barri» per evitar una assignació incorrecta.';
+      document.getElementById('barri').scrollIntoView({behavior:'smooth',block:'center'});
+     }
+    });
+    streetSuggestions.appendChild(b);
+   });
+   streetStatus.textContent='Selecciona l’adreça correcta de la llista.';
+  }catch(e){if(e.name!=='AbortError')streetStatus.textContent='El cercador d’adreces no està disponible ara mateix. Pots seleccionar el barri manualment.'}
+ },650);
+});
+
+// Triaje orientatiu: objectes voluminosos admesos al servei vs. residus de deixalleria.
+const triageInput=document.getElementById('triageInput'),triageResult=document.getElementById('triageResult');
+const triageRules=[
+ {terms:['matalas','colcho','matalàs'],kind:'street',category:'Colchones',label:'Matalassos'},
+ {terms:['sofa','sofà','armari','taula','cadira','moble','fusta','llit','prestatger'],kind:'street',category:'Madera y muebles',label:'Fusta i mobles'},
+ {terms:['nevera','frigorific','frigorífic','rentadora','rentaplats','assecadora'],kind:'street',category:'Aparatos eléctricos y electrónicos (RAEE)',label:'Aparells elèctrics i electrònics (RAEE)'},
+ {terms:['microones','microondas','torradora','tostadora','batedora','cafetera','ordinador','teclat','ratoli','ratolí','cable','carregador','bombeta','pila','bateria','oli','fluorescent'],kind:'tip',label:'Deixalleria o Punt Verd'},
+ {terms:['runa','runes','enderroc','escombr','vater','vàter','inodor','lavabo','banyera','pneumatic','pneumàtic','pintura','dissolvent','mirall','mirall','vidre','cristall','espill'],kind:'tip',label:'Deixalleria municipal'},
+ {terms:['matricula','pneumatic'],kind:'tip',label:'Deixalleria municipal'}
+];
+function triage(text){
+ const q=normalizePlace(text);return triageRules.find(r=>r.terms.some(t=>q.includes(normalizePlace(t))));
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function showTriage(){
+ const value=triageInput.value.trim(),safeValue=escapeHtml(value),rule=triage(value);
+ triageResult.className='smart-result';
+ if(!value){triageResult.textContent='Escriu el nom d’un objecte per veure on l’has de portar.';return}
+ if(!rule){triageResult.textContent='No tenim prou informació per classificar aquest objecte. Consulta la Deixalleria o truca al servei municipal abans de deixar-lo al carrer.';return}
+ if(rule.kind==='street'){
+  triageResult.classList.add('triage-result','street');
+  triageResult.innerHTML='<b>✅ Pot anar al servei de recollida de voluminosos</b><br>Categoria suggerida: '+rule.label+'. Hem preparat el formulari de reserva per a «'+safeValue+'»; selecciona el teu barri i el dia disponible.';
+  const select=document.getElementById('bookingItemType');select.value=rule.category;
+  document.getElementById('bookingQuantity').value=1;document.getElementById('bookingDescription').value=value;
+  updateTruckEstimate();
+  document.getElementById('reserves').scrollIntoView({behavior:'smooth',block:'start'});
+ }else{
+  triageResult.classList.add('triage-result','deixalleria');
+  const destination='Deixalleria Municipal, Carrer del Dr. Josep Castells 25, Sant Boi de Llobregat';
+  triageResult.innerHTML='<b>🚗 No ho deixis al carrer.</b><br>Porta-ho a la '+rule.label+'.<br><a class="source-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(destination)+'">Obrir la ruta a la Deixalleria ↗</a><br><span style="font-size:11px">Si és un residu petit, comprova si l’accepta un Punt Verd de barri.</span>';
+ }
+}
+triageInput.addEventListener('input',showTriage);
+
+// Estimació de volum orientativa. No altera el límit de reserves del servidor.
+function updateTruckEstimate(){
+ const type=document.getElementById('bookingItemType').value;
+ const quantity=Math.max(0,Number(document.getElementById('bookingQuantity').value)||0);
+ const weights={
+  'Madera y muebles':2,
+  'Colchones':2,
+  'Aparatos eléctricos y electrónicos (RAEE)':1.5,
+  'Metales y chatarra':1,
+  'Objetos en buen estado':1,
+  'Fracción resto':1.5
+ };
+ const capacityUnits=20,units=(weights[type]||0)*quantity;
+ const percent=Math.min(100,Math.round(units/capacityUnits*100));
+ document.getElementById('truckPercent').textContent=percent+' %';
+ document.getElementById('truckFill').style.width=percent+'%';
+ document.getElementById('truckText').textContent=type&&quantity?('Estimació: '+units.toLocaleString('ca-ES')+' de '+capacityUnits+' unitats de volum orientatives.'): 'Indica el tipus i la quantitat per calcular una estimació orientativa.';
+ const warning=document.getElementById('truckWarning'),meter=document.getElementById('truckMeter');
+ warning.hidden=true;meter.classList.toggle('warning',percent>=60);
+ if(percent>=60){
+  warning.hidden=false;
+  warning.textContent=quantity>=10?'⚠️ La quantitat és molt elevada. Et recomanem dividir els objectes en diverses setmanes i consultar el servei municipal abans de reservar.':'⚠️ Aquesta càrrega pot ocupar bona part del volum estimat. Valora repartir-la en diverses tandes.';
+ }
+}
+document.getElementById('bookingItemType').addEventListener('change',updateTruckEstimate);
+document.getElementById('bookingQuantity').addEventListener('input',updateTruckEstimate);
+updateTruckEstimate();
+
 </script>
 </body></html>

@@ -32,13 +32,19 @@ export const handler = async (event) => {
     if (event.httpMethod === 'POST') {
       let input;
       try { input = JSON.parse(event.body || '{}'); } catch { return reply(400, { ok: false, error: 'Les dades del formulari no són vàlides.' }); }
+      
       const nombre = String(input.nombre || '').trim();
       const email = String(input.email || '').trim().toLowerCase();
       const barrio = String(input.barrio || '').trim();
       const fecha = String(input.fecha || '').trim();
-      if (nombre.length < 3 || nombre.length > 60 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 120 || !barrio || !/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
-        return reply(400, { ok: false, error: 'Revisa el nom, el correu, el barri i la data.' });
+      const tipoObjeto = String(input.tipoObjeto || '').trim();
+      const cantidad = parseInt(input.cantidad, 10);
+      const descripcion = String(input.descripcion || '').trim();
+
+      if (nombre.length < 3 || nombre.length > 60 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 120 || !barrio || !/^\d{4}-\d{2}-\d{2}$/.test(fecha) || !tipoObjeto || isNaN(cantidad) || cantidad < 1) {
+        return reply(400, { ok: false, error: 'Revisa les dades del formulari, el tipus d’objecte i la quantitat.' });
       }
+
       const validAreas = [
         'Marianao', 'Ciutat Cooperativa i Molí Nou', 'Centre', 'Vinyets i Molí Vell',
         'Camps Blancs i Casablanca', 'Parc de Marianao, Can Paulet-Pedres Blanques i Canons-Les Orioles'
@@ -46,8 +52,15 @@ export const handler = async (event) => {
       if (!validAreas.includes(barrio)) return reply(400, { ok: false, error: 'El barri seleccionat no és vàlid.' });
 
       const { data, error } = await supabase.rpc('crear_reserva', {
-        p_nombre: nombre, p_email: email, p_barrio: barrio, p_fecha: fecha
+        p_nombre: nombre, 
+        p_email: email, 
+        p_barrio: barrio, 
+        p_fecha: fecha,
+        p_tipo_objeto: tipoObjeto,
+        p_cantidad: cantidad,
+        p_descripcion: descripcion
       });
+      
       if (error) throw error;
       const result = Array.isArray(data) ? data[0] : data;
       if (!result?.codigo) return reply(409, { ok: false, error: result?.mensaje || 'No s’ha pogut crear la reserva.' });
@@ -55,6 +68,7 @@ export const handler = async (event) => {
       let aviso = '';
       const resendKey = process.env.RESEND_API_KEY;
       const from = process.env.EMAIL_FROM || 'Sant Boi Net <onboarding@resend.dev>';
+      
       if (resendKey) {
         const dateParts = fecha.split('-');
         const readableDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
@@ -66,7 +80,26 @@ export const handler = async (event) => {
               from,
               to: [email],
               subject: 'La teva reserva de Sant Boi Net',
-              html: `<div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;color:#183b2d"><h2 style="color:#176044">Sant Boi Net</h2><p>Hola, ${escapeHtml(nombre)}!</p><p>La teva reserva s’ha registrat correctament.</p><ul><li><b>Barri:</b> ${escapeHtml(barrio)}</li><li><b>Data:</b> ${readableDate}</li><li><b>Horari:</b> 20:00–22:00</li><li><b>Codi:</b> ${result.codigo}</li></ul><p>Deixa els mobles al costat de l’entrada de l’edifici, no al costat dels contenidors.</p><p>Gràcies per ajudar a mantenir Sant Boi net.</p><p><b>Sant Boi Net</b></p><hr><small>Projecte escolar demostratiu; no és una reserva oficial de l’Ajuntament.</small></div>`
+              html: `
+                <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;color:#183b2d">
+                  <h2 style="color:#176044">Sant Boi Net</h2>
+                  <p>Hola, ${escapeHtml(nombre)}!</p>
+                  <p>La teva reserva de voluminosos s’ha registrat correctament.</p>
+                  <ul>
+                    <li><b>Barri:</b> ${escapeHtml(barrio)}</li>
+                    <li><b>Data:</b> ${readableDate}</li>
+                    <li><b>Horari:</b> 20:00–22:00</li>
+                    <li><b>Tipus d'objecte:</b> ${escapeHtml(tipoObjeto)}</li>
+                    <li><b>Quantitat:</b> ${cantidad}</li>
+                    ${descripcion ? `<li><b>Descripció:</b> ${escapeHtml(descripcion)}</li>` : ''}
+                    <li><b>Codi:</b> ${result.codigo}</li>
+                  </ul>
+                  <p>Deixa els mobles al costat de l’entrada de l’edifici, no al costat dels contenidors.</p>
+                  <p>Gràcies per ajudar a mantenir Sant Boi net.</p>
+                  <p><b>Sant Boi Net</b></p>
+                  <hr><small>Projecte escolar demostratiu; no és una reserva oficial de l’Ajuntament.</small>
+                </div>
+              `
             })
           });
           if (!mailResponse.ok) {
@@ -90,6 +123,7 @@ export const handler = async (event) => {
       const codigo = String(input.codigo || '').trim();
       const email = String(input.email || '').trim().toLowerCase();
       if (!codigo || !email) return reply(400, { error: 'Cal indicar el codi i el correu de la reserva.' });
+      
       const { data, error } = await supabase.from('reservas').delete().eq('codigo', codigo).eq('email', email).select('id');
       if (error) throw error;
       if (!data?.length) return reply(404, { error: 'No s’ha trobat cap reserva amb aquest codi i correu.' });
@@ -104,5 +138,5 @@ export const handler = async (event) => {
 };
 
 function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  return String(value).replace(/[&<>"']/g, (char) => ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": ''' }[char]));
 }

@@ -67,6 +67,11 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 .capacity{height:8px;background:#e8eee9;border-radius:99px;overflow:hidden;margin:9px 0 5px}.capacity span{display:block;height:100%;background:linear-gradient(90deg,#10a779,#8acb73);border-radius:99px;transition:width .25s}
 .booking-form label{font-size:11px;font-weight:800;display:block;margin:12px 0 6px}
 .booking-form input{width:100%;padding:12px;border:1px solid #dce9e1;border-radius:11px;background:#fbfdfb;color:var(--ink);font:inherit}
+.booking-form select,.booking-form textarea{width:100%;padding:12px;border:1px solid #dce9e1;border-radius:11px;background:#fbfdfb;color:var(--ink);font:inherit}
+.booking-form textarea{min-height:88px;resize:vertical}
+.booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 4px #0b9b6b18}
+.booking-form .field-help{display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:5px}
+
 .booking-form .btn{width:100%;margin-top:14px}
 .booking-message{padding:12px;border-radius:12px;background:#edf8f1;color:#176044;font-size:12px;line-height:1.6;margin-top:12px}
 .reservation-item{border:1px solid var(--line);border-radius:13px;padding:12px;margin-top:10px;font-size:12px}
@@ -111,6 +116,25 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
    <label for="bookingName">EL TEU NOM I COGNOMS</label><input id="bookingName" maxlength="60" autocomplete="name" required placeholder="Escriu el teu nom complet">
    <label for="bookingEmail">CORREU ELECTRÒNIC</label><input id="bookingEmail" type="email" maxlength="120" autocomplete="email" required placeholder="exemple@gmail.com">
    <div class="small" style="margin-top:7px;line-height:1.6">Acceptem Gmail, iCloud, Hotmail, Outlook, Yahoo i Live.</div>
+
+   <label for="bookingItemType">TIPUS D'OBJECTE</label>
+   <select id="bookingItemType" name="tipoObjeto" required>
+    <option value="">Selecciona el tipus d'objecte...</option>
+    <option value="Madera y muebles">Madera y muebles</option>
+    <option value="Aparatos eléctricos y electrónicos (RAEE)">Aparatos eléctricos y electrónicos (RAEE)</option>
+    <option value="Metales y chatarra">Metales y chatarra</option>
+    <option value="Colchones">Colchones</option>
+    <option value="Objetos en buen estado">Objetos en buen estado</option>
+    <option value="Fracción resto">Fracción resto</option>
+   </select>
+   <span class="field-help">Selecciona la categoría que mejor describa los objetos que dejarás.</span>
+
+   <label for="bookingQuantity">CANTIDAD DE OBJETOS</label>
+   <input id="bookingQuantity" name="cantidad" type="number" min="1" max="999" step="1" required inputmode="numeric" placeholder="Ej. 2">
+
+   <label for="bookingDescription">DESCRIPCIÓN ADICIONAL (OPCIONAL)</label>
+   <textarea id="bookingDescription" name="descripcion" maxlength="500" placeholder="Puedes indicar qué muebles o materiales son, medidas aproximadas, etc."></textarea>
+
    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px" >
    <button class="btn btn-primary" id="reserveBtn" type="submit" disabled>Confirmar reserva <span>→</span></button>
   </form>
@@ -168,8 +192,8 @@ function renderMyReservations(){const host=document.getElementById('myReservatio
 bookingBarri.addEventListener('change',()=>{chosenDate='';renderCalendar();updateBookingSummary()});
 monthPicker.addEventListener('change',()=>{calDate.setMonth(Number(monthPicker.value));chosenDate='';renderCalendar();updateBookingSummary()});yearPicker.addEventListener('change',()=>{calDate.setFullYear(Number(yearPicker.value));chosenDate='';renderCalendar();updateBookingSummary()});
 document.getElementById('prevMonth').addEventListener('click',()=>{calDate.setMonth(calDate.getMonth()-1);chosenDate='';renderCalendar();updateBookingSummary()});document.getElementById('nextMonth').addEventListener('click',()=>{calDate.setMonth(calDate.getMonth()+1);chosenDate='';renderCalendar();updateBookingSummary()});
-document.getElementById('bookingForm').addEventListener('submit',async e=>{e.preventDefault();const barrio=bookingBarri.value,nombre=document.getElementById('bookingName').value.trim(),email=document.getElementById('bookingEmail').value.trim().toLowerCase();if(document.getElementById('website').value)return;if(!barrio||!chosenDate||!nombre||!email){bookingMessage.textContent='Omple les dades i selecciona un dia disponible.';return}reserveBtn.disabled=true;reserveBtn.textContent='Enviant…';
- try{const resp=await fetch('/.netlify/functions/reservas',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,email,barrio,fecha:chosenDate})});const j=await resp.json();if(!resp.ok||!j.ok)throw new Error(j.error||'No s’ha pogut crear la reserva');reservations.push({barrio,fecha:chosenDate,codigo:j.codigo,email});saveMine();bookingMessage.innerHTML='<div class="booking-message"><b>✓ Reserva registrada.</b><br>Tu código es <b>'+j.codigo+'</b>.'+(j.aviso?'<br>'+j.aviso:'')+'</div>';document.getElementById('bookingForm').reset();chosenDate='';await refreshCounts();updateBookingSummary()}catch(err){bookingMessage.innerHTML='<div class="booking-message">'+err.message+'</div>'}finally{reserveBtn.textContent='Confirmar reserva →';updateBookingSummary()}});
+document.getElementById('bookingForm').addEventListener('submit',async e=>{e.preventDefault();const barrio=bookingBarri.value,nombre=document.getElementById('bookingName').value.trim(),email=document.getElementById('bookingEmail').value.trim().toLowerCase(),tipoObjeto=document.getElementById('bookingItemType').value,cantidad=Number(document.getElementById('bookingQuantity').value),descripcion=document.getElementById('bookingDescription').value.trim();if(document.getElementById('website').value)return;if(!barrio||!chosenDate||!nombre||!email||!tipoObjeto||!Number.isInteger(cantidad)||cantidad<1){bookingMessage.textContent='Omple tots els camps obligatoris, selecciona un dia i indica el tipus i la quantitat d’objectes.';return}if(!document.getElementById('bookingForm').reportValidity())return;reserveBtn.disabled=true;reserveBtn.textContent='Enviant…';
+ try{const resp=await fetch('/.netlify/functions/reservas',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,email,barrio,fecha:chosenDate,tipoObjeto,cantidad,descripcion})});const j=await resp.json();if(!resp.ok||!j.ok)throw new Error(j.error||'No s’ha pogut crear la reserva');reservations.push({barrio,fecha:chosenDate,codigo:j.codigo,email});saveMine();bookingMessage.innerHTML='<div class="booking-message"><b>✓ Reserva registrada.</b><br>Tu código es <b>'+j.codigo+'</b>.'+(j.aviso?'<br>'+j.aviso:'')+'</div>';document.getElementById('bookingForm').reset();chosenDate='';await refreshCounts();updateBookingSummary()}catch(err){bookingMessage.innerHTML='<div class="booking-message">'+err.message+'</div>'}finally{reserveBtn.textContent='Confirmar reserva →';updateBookingSummary()}});
 renderCalendar();updateBookingSummary();renderMyReservations();refreshCounts();
 
 const schedule={'Marianao':['Dilluns','20.00–22.00 h'],'Ciutat Cooperativa i Molí Nou':['Dimarts','20.00–22.00 h'],'Centre':['Dimecres','20.00–22.00 h'],'Vinyets i Molí Vell':['Dijous','20.00–22.00 h'],'Camps Blancs i Casablanca':['Divendres','20.00–22.00 h'],'Parc de Marianao, Can Paulet-Pedres Blanques i Canons-Les Orioles':['Divendres','20.00–22.00 h']};

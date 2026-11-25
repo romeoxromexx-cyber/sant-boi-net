@@ -110,6 +110,246 @@ footer{margin-top:45px;background:#062f26;color:#d4e9df;padding:36px 0 25px}.foo
 @media(max-width:800px){.hero-grid{grid-template-columns:1fr;gap:5px}.visual{min-height:330px}.mock-card{max-width:360px}.visual-blob{width:290px;height:290px}.info-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.stats{margin-bottom:38px}}
 @media(max-width:620px){.container{width:min(100% - 30px,1160px)}.topbar .container{font-size:10px}.header-inner{height:68px}.nav{display:none;position:absolute;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 15px 15px;flex-direction:column;align-items:stretch}.nav.open{display:flex}.nav a{padding:12px}.nav .nav-cta{margin:3px 0 0;text-align:center}.menu-btn{display:block}.hero{padding:42px 0 25px}.hero-copy{font-size:15px}.visual{min-height:300px}.mock-card{width:88%;padding:20px}.float-chip{font-size:10px}.chip-one{right:-3px}.chip-two{left:-2px}.stats{grid-template-columns:1fr}.stat{padding:13px}.stat b{font-size:16px}.form-row{grid-template-columns:1fr}.form-row .btn{width:100%}.urgent{align-items:flex-start;flex-direction:column}.contact-grid{grid-template-columns:1fr}.footer-inner,.footer-bottom{flex-direction:column}.footer-bottom{gap:7px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* ===== Sant Boi Net · renovació visual (només CSS; funcionalitat intacta) ===== */
+:root{
+  --forest:#103b31;--green:#087b59;--green2:#19a875;--lime:#d7f28a;
+  --mint:#eaf7ef;--ink:#18382f;--muted:#687d74;--paper:#f4f8f5;
+  --line:#dce9e1;--shadow:0 14px 38px rgba(16,59,49,.075);--radius:24px;
+}
+body{background:linear-gradient(180deg,#f7faf8 0%,#f1f7f3 100%);color:var(--ink)}
+::selection{background:#c9efd9;color:var(--forest)}
+:focus-visible{outline:3px solid #19a87570!important;outline-offset:3px}
+.container{width:min(1180px,calc(100% - 48px))}
+.topbar{background:#0b3028;letter-spacing:.15px}
+header{background:rgba(255,255,255,.94);box-shadow:0 5px 24px rgba(16,59,49,.045)}
+.header-inner{height:82px}
+.brand-mark{border-radius:17px;background:linear-gradient(145deg,#19a875,#07533e);box-shadow:0 8px 20px #08765328}
+.nav a{border-radius:999px;padding:11px 16px}
+.nav .nav-cta{border-radius:999px;padding:12px 19px}
+.hero{padding:68px 0 58px;background:radial-gradient(ellipse at 85% 12%,#d9f4e4 0,transparent 38%),linear-gradient(135deg,#f0faf3 0%,#f8fbf9 65%,#edf7f0 100%)}
+.hero-grid{gap:54px}
+h1{letter-spacing:-2.2px}
+.hero-copy{color:#5e756b;line-height:1.8}
+.btn{border-radius:999px;padding:14px 22px;letter-spacing:.1px}
+.btn-primary{background:linear-gradient(135deg,#0b8962,#076448);box-shadow:0 9px 22px #08765325}
+.btn-primary:hover{background:linear-gradient(135deg,#086d50,#064b39)}
+.mock-card{border:1px solid #dcebe1;border-radius:30px;box-shadow:0 28px 75px rgba(13,69,47,.15)}
+.float-chip{border:1px solid #e3eee7;border-radius:999px;box-shadow:0 12px 30px rgba(16,59,49,.09)}
+.stats{gap:0;background:transparent;border:0;border-radius:0;overflow:visible;margin-bottom:58px}
+.stat{margin:0 6px;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(16,59,49,.045);padding:21px 14px}
+.stat b{font-size:20px}
+section.content{padding:32px 0 62px}
+.section-head{margin-bottom:26px}
+.section-head h2{letter-spacing:-1.3px}
+.lookup-card,.street-search,.triage-card,.truck-card,.calendar-card,.booking-side,.guidance-card,.info-card,.contact-card,.panel{
+  border:1px solid #dce9e1;border-radius:23px;box-shadow:0 10px 30px rgba(16,59,49,.055)
+}
+.lookup-card,.calendar-card,.booking-side,.guidance-card{padding:clamp(22px,3vw,30px)}
+.street-search,.triage-card,.truck-card{padding:24px}
+.lookup-symbol,.info-icon,.contact-card .ico{border-radius:17px;background:linear-gradient(145deg,#e8f7ee,#dff2e7);border:1px solid #d9eee1}
+.field select,.booking-form input,.booking-form select,.booking-form textarea,.smart-input{
+  border:1px solid #d4e4da;border-radius:14px;background:#fbfdfb;min-height:48px;transition:border-color .2s,box-shadow .2s,background .2s
+}
+.field select:hover,.booking-form input:hover,.booking-form select:hover,.booking-form textarea:hover,.smart-input:hover{border-color:#a9d4bb}
+.field select:focus,.booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus,.smart-input:focus{background:#fff;border-color:#19a875;box-shadow:0 0 0 4px #19a87518}
+.result{border:1px dashed #b9ddc8;border-radius:20px;background:linear-gradient(145deg,#f7fcf8,#eef8f1)}
+.result.ready{border:1px solid #b9dfc8;background:linear-gradient(145deg,#effaf3,#e4f5e9)}
+.tag,.mock-badge{border:1px solid #ccebd7;border-radius:999px}
+.info-grid{gap:18px}
+.info-card{padding:26px;box-shadow:0 9px 26px rgba(16,59,49,.05)}
+.info-card:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(16,59,49,.09);border-color:#c7e2d1}
+.tip,.guidance-note{border-radius:18px;border-color:#dcebcf;background:#f4f9eb}
+.urgent{border:1px solid #17674f;border-radius:28px;background:linear-gradient(120deg,#0b392e,#087653);box-shadow:0 18px 42px rgba(7,63,50,.16)}
+.contact-card{padding:22px;border-radius:20px}
+.calendar-card,.booking-side{border-radius:24px}
+.cal-arrows button{border-radius:50%;width:40px;height:40px;background:#f8fbf9}
+.cal-arrows button:hover:not(:disabled){background:var(--mint);border-color:#b9ddc8;color:var(--green)}
+.cal-day{border-radius:50%;max-width:48px;justify-self:center;width:100%;min-height:0}
+.cal-day.available{border:1px solid #c8e9d4;background:#eff9f2}
+.cal-day.selected{background:linear-gradient(145deg,#0b956a,#076448);box-shadow:0 6px 15px #08765330}
+.booking-summary{border:1px solid #cfe8d8;border-radius:18px;background:linear-gradient(145deg,#f2faf4,#eaf7ef);padding:18px}
+.booking-message{border:1px solid #cfe8d8;border-radius:15px}
+.reservation-item{border:1px solid #dce9e1;border-radius:16px;padding:15px;background:#fcfefd}
+.reservation-item button{border:1px solid #f2d7d1;border-radius:999px;padding:9px 13px}
+.suggestion-list button{border:1px solid #dce9e1;border-radius:13px;padding:12px 14px;background:#fbfdfb}
+.suggestion-list button:hover{border-color:#8fc9a6;background:#eff9f2}
+.smart-result{border-radius:16px;border-color:#d3e9db;background:#f5fbf7}
+.truck-meter{height:11px;border:1px solid #e0eae3}
+.hours-row{padding:12px 4px}
+footer{background:linear-gradient(135deg,#062f26,#0b4637);border-top:4px solid #19a875}
+.footer-bottom{padding-top:20px}
+/* Reducció de moviment i adaptació a pantalles petites */
+@media(max-width:800px){.hero{padding:48px 0 35px}.hero-grid{gap:12px}.stats{gap:9px}.stat{margin:0}.booking-layout{gap:14px}}
+@media(max-width:620px){
+ .container{width:calc(100% - 28px)}.topbar .container{height:auto;min-height:35px;padding:8px 0;align-items:flex-start;flex-direction:column;gap:3px}
+ .header-inner{height:70px}.nav{top:70px;border:1px solid var(--line);border-radius:0 0 18px 18px;box-shadow:0 15px 25px rgba(16,59,49,.08)}
+ .hero{padding:40px 0 25px}h1{font-size:clamp(42px,12vw,58px)}.visual{min-height:285px}.mock-card{border-radius:23px}.float-chip{padding:9px 12px}
+ .stats{grid-template-columns:1fr;margin-bottom:32px}.stat{padding:14px}.section-head{margin-bottom:19px}
+ .lookup-card,.calendar-card,.booking-side,.guidance-card,.street-search,.triage-card{padding:19px;border-radius:19px}
+ .cal-grid{gap:3px}.cal-day{font-size:12px}.cal-legend{gap:9px}.urgent{border-radius:22px}
+}
+
+
+
+/* ===== Ajustos finals: cap element no surt del contenidor + moviment fluid ===== */
+html,body{max-width:100%;overflow-x:hidden}
+.container,section.content,.panel,.panel *{min-width:0}
+.panel{width:100%;max-width:100%;padding:clamp(18px,3.2vw,28px);overflow:hidden;background:rgba(255,255,255,.94)}
+.panel .section-head{width:100%;max-width:100%;align-items:flex-start;gap:12px}
+.panel .section-head>div{width:100%;max-width:100%;min-width:0}
+.panel .section-head h2,.panel .section-head p{max-width:100%;overflow-wrap:anywhere;word-break:normal}
+.panel .section-head p{line-height:1.65}
+#myReservations{width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+#myReservations>.small{max-width:100%;line-height:1.65;overflow-wrap:anywhere}
+#myReservations .reservation-item{width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere;display:block}
+#myReservations .reservation-item>*{max-width:100%;overflow-wrap:anywhere}
+#myReservations .reservation-item button{max-width:100%;white-space:normal}
+/* Aparició suau de les seccions */
+.reveal{transition:opacity .8s cubic-bezier(.2,.75,.25,1),transform .8s cubic-bezier(.2,.75,.25,1)}
+.reveal.visible{animation:section-arrive .85s cubic-bezier(.2,.75,.25,1) both}
+@keyframes section-arrive{0%{opacity:0;transform:translate3d(0,22px,0) scale(.985);filter:blur(3px)}65%{filter:blur(0)}100%{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+/* Microinteraccions elegants */
+.btn,.nav a,.cal-day,.cal-arrows button,.reservation-item button,.suggestion-list button{transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s ease,background .28s ease,border-color .28s ease,color .28s ease}
+.btn:hover{transform:translateY(-3px) scale(1.015)}
+.btn:active,.cal-day:active,.reservation-item button:active{transform:scale(.97)}
+.lookup-card,.calendar-card,.booking-side,.guidance-card,.street-search,.triage-card,.truck-card,.panel,.contact-card{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease}
+.lookup-card:hover,.calendar-card:hover,.booking-side:hover,.panel:hover{box-shadow:0 18px 48px rgba(16,59,49,.09);border-color:#c9e3d2}
+.reservation-item{animation:reservation-enter .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes reservation-enter{from{opacity:0;transform:translateY(9px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cal-day.available:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 7px 17px rgba(8,123,89,.14)}
+.cal-day.selected{animation:day-select .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes day-select{0%{transform:scale(.88)}65%{transform:scale(1.1)}100%{transform:scale(1)}}
+.field select,.booking-form input,.booking-form select,.booking-form textarea,.smart-input{transition:border-color .25s ease,box-shadow .25s ease,background .25s ease}
+@media(max-width:620px){
+ .panel{padding:18px 16px;border-radius:19px;margin-top:14px!important}
+ .panel .section-head{margin-bottom:12px}
+ .panel .section-head h2{font-size:22px!important;line-height:1.2}
+ .panel .section-head p{font-size:13px;line-height:1.6}
+ #myReservations .reservation-item{padding:13px}
+}
+@media(prefers-reduced-motion:reduce){.reveal.visible,.reservation-item,.cal-day.selected{animation:none!important}.btn:hover,.cal-day.available:hover{transform:none}}
+
+
+/* ===== Acabats d'interacció: hover, desplaçament i barra de scroll ===== */
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#19a875 #eaf3ed;overscroll-behavior-y: smooth}
+html::-webkit-scrollbar{width:11px}
+html::-webkit-scrollbar-track{background:#eaf3ed}
+html::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#25bd88,#087653);border:3px solid #eaf3ed;border-radius:999px}
+html::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#087653,#064b39)}
+:where(a,button,select,input,textarea,[tabindex]):focus-visible{outline:3px solid #19a875;outline-offset:3px}
+.info-card,.contact-card,.guidance-card,.street-search,.triage-card,.truck-card,.lookup-card,.calendar-card,.booking-side,.panel,.stat,.float-chip,.mock-card{will-change:transform;transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s ease,border-color .3s ease}
+.contact-card:hover,.guidance-card:hover,.street-search:hover,.triage-card:hover,.truck-card:hover,.stat:hover{transform:translateY(-4px);box-shadow:0 17px 38px rgba(16,59,49,.10);border-color:#bcdcc9}
+.float-chip{animation:chip-drift 5.5s ease-in-out infinite}
+.chip-two{animation-delay:-2.7s}
+@keyframes chip-drift{0%,100%{translate:0 0}50%{translate:0 -7px}}
+.brand-mark,.lookup-symbol,.info-icon,.contact-card .ico,.mock-icon{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease}
+.brand:hover .brand-mark,.lookup-card:hover .lookup-symbol,.info-card:hover .info-icon,.contact-card:hover .ico{transform:rotate(-6deg) scale(1.06)}
+.nav a:not(.nav-cta){position:relative}
+.nav a:not(.nav-cta):after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;border-radius:2px;background:var(--green2);transform:scaleX(0);transform-origin:left;transition:transform .28s ease}
+.nav a:not(.nav-cta):hover:after{transform:scaleX(1)}
+.reveal{will-change:opacity,transform;backface-visibility:hidden}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}html::-webkit-scrollbar-thumb{background:#087653}.float-chip{animation:none!important}.info-card,.contact-card,.guidance-card,.street-search,.triage-card,.truck-card,.lookup-card,.calendar-card,.booking-side,.panel,.stat,.float-chip,.mock-card{transition:none!important;will-change:auto}}
+
+/* ===== Moviments més lents i naturals ===== */
+:root{scroll-behavior:smooth}
+/* Transicions pausades: sense salts ni efectes elàstics */
+.info-card,.contact-card,.guidance-card,.street-search,.triage-card,.truck-card,.lookup-card,.calendar-card,.booking-side,.panel,.stat,.float-chip,.mock-card{
+  transition:transform 1.05s cubic-bezier(.22,.61,.36,1),box-shadow 1.05s cubic-bezier(.22,.61,.36,1),border-color .85s ease!important;
+  will-change:auto!important;
+}
+.info-card:hover,.contact-card:hover,.guidance-card:hover,.street-search:hover,.triage-card:hover,.truck-card:hover,.lookup-card:hover,.calendar-card:hover,.booking-side:hover,.panel:hover,.stat:hover,.mock-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 13px 32px rgba(16,59,49,.075)!important;
+}
+.btn,.nav a,.cal-day,.cal-arrows button,.reservation-item button,.suggestion-list button,
+.brand-mark,.lookup-symbol,.info-icon,.contact-card .ico,.mock-icon{
+  transition:transform .85s cubic-bezier(.22,.61,.36,1),box-shadow .85s ease,background-color .75s ease,border-color .75s ease,color .75s ease!important;
+}
+.btn:hover{transform:translateY(-1px)!important}
+.btn:active,.cal-day:active,.reservation-item button:active{transform:scale(.99)!important}
+.cal-day.available:hover{transform:translateY(-1px)!important;box-shadow:0 4px 12px rgba(8,123,89,.10)!important}
+.brand:hover .brand-mark,.lookup-card:hover .lookup-symbol,.info-card:hover .info-icon,.contact-card:hover .ico{transform:rotate(-2deg) scale(1.02)!important}
+.nav a:not(.nav-cta):after{transition:transform .75s cubic-bezier(.22,.61,.36,1)!important}
+/* Entrada al hacer scroll: lenta, gradual y sin rebote */
+.reveal{opacity:0;transform:translate3d(0,14px,0)!important;filter:none!important;transition:opacity 1.35s cubic-bezier(.22,.61,.36,1),transform 1.35s cubic-bezier(.22,.61,.36,1)!important;}
+.reveal.visible{opacity:1;transform:translate3d(0,0,0)!important;animation:none!important;}
+/* Evita que los elementos decorativos se muevan solos */
+.float-chip{animation:none!important}
+.reservation-item{animation:none!important}
+.cal-day.selected{animation:none!important}
+.result.ready{animation:none!important}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .info-card,.contact-card,.guidance-card,.street-search,.triage-card,.truck-card,.lookup-card,.calendar-card,.booking-side,.panel,.stat,.float-chip,.mock-card,.btn,.nav a,.cal-day{transition:none!important}
+}
+
+
+/* ===== Efecto de pulsación: los controles se hunden al hacer clic ===== */
+:where(button:not(:disabled),a[href],[role="button"],[onclick],.btn,.cal-day,.suggestion-list button){
+  transform-origin:center;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .32s cubic-bezier(.22,.61,.36,1),box-shadow .32s ease,filter .32s ease!important;
+}
+:where(button:not(:disabled),a[href],[role="button"],[onclick],.btn,.cal-day,.suggestion-list button):active{
+  transform:translateY(2px) scale(.975)!important;
+  filter:brightness(.97);
+  box-shadow:inset 0 2px 5px rgba(12,48,36,.16)!important;
+}
+:where(button:disabled){cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){
+  :where(button:not(:disabled),a[href],[role="button"],[onclick],.btn,.cal-day,.suggestion-list button){transition:none!important}
+}
+
+
+
+/* ===== Animacions globals suaus i coherents ===== */
+html{scroll-behavior:smooth;scroll-padding-top:105px}
+:target{scroll-margin-top:105px}
+/* Entrada i sortida progressiva en fer scroll, també quan es torna amunt */
+.reveal{
+  opacity:0;
+  transform:translate3d(0,24px,0);
+  transition:opacity 900ms cubic-bezier(.22,.61,.36,1),transform 1050ms cubic-bezier(.22,.61,.36,1);
+  will-change:opacity,transform;
+}
+.reveal.visible{opacity:1;transform:translate3d(0,0,0)}
+/* Elements amb superfície: s'aixequen lleugerament quan hi passes el cursor */
+.info-card,.contact-card,.guidance-card,.street-search,.triage-card,.truck-card,
+.lookup-card,.calendar-card,.booking-side,.panel,.stat,.mock-card,.urgent,.tip{
+  transition:transform 720ms cubic-bezier(.22,.61,.36,1),box-shadow 720ms cubic-bezier(.22,.61,.36,1),border-color 650ms ease;
+}
+.info-card:hover,.contact-card:hover,.guidance-card:hover,.street-search:hover,
+.triage-card:hover,.truck-card:hover,.lookup-card:hover,.calendar-card:hover,
+.booking-side:hover,.panel:hover,.stat:hover,.mock-card:hover,.urgent:hover,.tip:hover{
+  transform:translate3d(0,-4px,0);
+  box-shadow:0 16px 38px rgba(16,59,49,.09);
+}
+/* Botons i enllaços: elevació subtil al passar-hi i sensació de pressió al clicar */
+button:not(:disabled),a[href],[role="button"],.btn,.cal-day,.suggestion-list button{
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 520ms cubic-bezier(.22,.61,.36,1),box-shadow 520ms ease,background-color 520ms ease,color 520ms ease,border-color 520ms ease;
+}
+button:not(:disabled):hover,a[href]:hover,[role="button"]:hover,.btn:hover{
+  transform:translate3d(0,-2px,0);
+}
+button:not(:disabled):active,a[href]:active,[role="button"]:active,.btn:active,.cal-day:active,.suggestion-list button:active{
+  transform:translate3d(0,2px,0) scale(.975);
+  transition-duration:150ms;
+  filter:brightness(.97);
+}
+/* No animar elementos decorativos por su cuenta: el movimiento responde al usuario */
+.float-chip{animation:none!important}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .info-card,.contact-card,.guidance-card,.street-search,.triage-card,.truck-card,
+  .lookup-card,.calendar-card,.booking-side,.panel,.stat,.mock-card,.urgent,.tip,
+  button:not(:disabled),a[href],[role="button"],.btn,.cal-day,.suggestion-list button{
+    transition:none!important;transform:none!important;will-change:auto!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -282,7 +522,14 @@ const select=document.getElementById('barri'),result=document.getElementById('re
 function show(){const name=select.value,info=schedule[name];if(!info){result.classList.remove('ready');result.innerHTML='<div><div style="font-size:32px">🗓️</div><b>El teu calendari apareixerà aquí</b><div class="small">Tria el teu barri al menú de sobre.</div></div>';return}result.classList.add('ready');result.innerHTML=`<div><span class="tag">EL TEU DIA DE RECOLLIDA</span><div class="small" style="margin-top:12px">${name}</div><div class="result-day">${info[0]}</div><div class="small">Pots deixar els mobles entre</div><div class="result-time">${info[1]}</div><div class="small" style="margin-top:13px">📍 Al costat de l'entrada de l'edifici, no dels contenidors.<br>🚛 La recollida es fa durant el dia següent.</div></div>`}
 document.getElementById('consulta').addEventListener('click',show);select.addEventListener('change',show);
 const menu=document.getElementById('menuBtn'),nav=document.getElementById('nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open?'true':'false');menu.textContent=open?'✕':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+// Aparició suau en entrar a la pantalla; es repeteix tant en baixar com en pujar.
+// Afegim la classe als blocs visuals principals perquè tota la pàgina tingui el mateix ritme.
+document.querySelectorAll('.hero-grid > *, section.content > *, .info-card, .guidance-card, .contact-card, .urgent, .tip, .stats').forEach(el=>el.classList.add('reveal'));
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('visible')}
+  else{e.target.classList.remove('visible')}
+}),{threshold:0.06,rootMargin:'-6% 0px -6% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 // --- Funcions addicionals: cercador de carrers, triaje i estimació de volum ---
 const streetInput=document.getElementById('streetInput');
